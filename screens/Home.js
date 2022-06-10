@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, Button } from "react-native";
 import React, { useState, useEffect } from "react";
 import HeaderTabs from "../components/home/HeaderTabs";
 import SearchBar from "../components/home/SearchBar";
@@ -12,7 +12,7 @@ import BottomTabs from "../components/home/BottomTabs";
 const YELP_API_KEY =
   "fyVnsz-ocgPRgX80-3a8tqniE8i7KXE3-Osoz8j_TNPYQG5Ic0qDku56NrfdzjHjr6IR8_lUsTIs2URhZL9UMaIwh0r3EA45JSrEDzBWRXNZPtDk8f2uILDWpN2gYnYx";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("San Francisco");
   const [activeTab, setActiveTab] = useState("Delivery");
@@ -48,7 +48,11 @@ export default function Home() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
-        <RestaurantItem restaurantData={restaurantData} />
+        <RestaurantItem
+          onTouch={() => navigation.navigate("RestaurantDetail")}
+          restaurantData={restaurantData}
+          navigation={navigation}
+        />
       </ScrollView>
 
       {/* <Divider width={1.8} style={{ marginVertical: 20 }} /> */}
