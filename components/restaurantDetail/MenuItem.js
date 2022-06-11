@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useDispatch, useSelector } from "react-redux";
 
 const foods = [
   {
@@ -13,28 +14,28 @@ const foods = [
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
   },
   {
-    title: "lasania",
+    title: "lasaniaa",
     description: "with butter and I dont know what to write anymore",
     price: "$99.00",
     image:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
   },
   {
-    title: "lasania",
+    title: "lasaniaaa",
     description: "with butter and I dont know what to write anymore",
     price: "$99.00",
     image:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
   },
   {
-    title: "lasania",
+    title: "lasaniaaaaaa",
     description: "with butter and I dont know what to write anymore",
     price: "$99.00",
     image:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
   },
   {
-    title: "lasania",
+    title: "lasaniaaaaaaa",
     description: "with butter and I dont know what to write anymore",
     price: "$99.00",
     image:
@@ -55,19 +56,40 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-export default function MenuItem() {
+export default function MenuItem({ restaurantName }) {
+  const dispatch = useDispatch();
+
+  const selectItem = (item, checkboxValue) =>
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item,
+        restaurantName: restaurantName,
+        checkboxValue: checkboxValue,
+      },
+    });
+
+  const cartItems = useSelector(
+    (state) => state.cartReducer.selectedItems.items
+  );
+
+  const isFoodInCart = (food, cartItems) =>
+    Boolean(cartItems.find((item) => item.title === food.title));
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {foods.map((food, index) => (
         <View key={index}>
           <View style={styles.menuItemStyle}>
-            <BouncyCheckbox />
+            <BouncyCheckbox
+              onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+              isChecked={isFoodInCart(food, cartItems)}
+            />
             <FoodInfo food={food} />
             <FoodImage food={food} />
           </View>
           <Divider
             width={0.5}
-            style={{ marginVertical: 20 }}
             orientation="vertical"
             style={{ marginHorizontal: 20 }}
           />
