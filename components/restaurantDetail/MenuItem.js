@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
   },
 });
 export default function MenuItem({ restaurantName }) {
+  console.log(restaurantName);
+
   const dispatch = useDispatch();
 
   const selectItem = (item, checkboxValue) =>
