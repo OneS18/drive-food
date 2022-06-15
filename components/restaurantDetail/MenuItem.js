@@ -5,44 +5,6 @@ import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from "react-redux";
 
-const foods = [
-  {
-    title: "lasania",
-    description: "with butter and I dont know what to write anymore",
-    price: "$99.00",
-    image:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
-  },
-  {
-    title: "lasaniaa",
-    description: "with butter and I dont know what to write anymore",
-    price: "$99.00",
-    image:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
-  },
-  {
-    title: "lasaniaaa",
-    description: "with butter and I dont know what to write anymore",
-    price: "$99.00",
-    image:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
-  },
-  {
-    title: "lasaniaaaaaa",
-    description: "with butter and I dont know what to write anymore",
-    price: "$99.00",
-    image:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
-  },
-  {
-    title: "lasaniaaaaaaa",
-    description: "with butter and I dont know what to write anymore",
-    price: "$99.00",
-    image:
-      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.onzm5vFa_arxo0G-GEc8aQHaEL%26pid%3DApi&f=1",
-  },
-];
-
 const styles = StyleSheet.create({
   menuItemStyle: {
     flexDirection: "row",
@@ -56,7 +18,12 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-export default function MenuItem({ restaurantName }) {
+export default function MenuItem({
+  restaurantName,
+  foods,
+  hideCheckbox,
+  // marginLeft,
+}) {
   console.log(restaurantName);
 
   const dispatch = useDispatch();
@@ -83,10 +50,14 @@ export default function MenuItem({ restaurantName }) {
       {foods.map((food, index) => (
         <View key={index}>
           <View style={styles.menuItemStyle}>
-            <BouncyCheckbox
-              onPress={(checkboxValue) => selectItem(food, checkboxValue)}
-              isChecked={isFoodInCart(food, cartItems)}
-            />
+            {hideCheckbox ? (
+              <></>
+            ) : (
+              <BouncyCheckbox
+                onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+                isChecked={isFoodInCart(food, cartItems)}
+              />
+            )}
             <FoodInfo food={food} />
             <FoodImage food={food} />
           </View>

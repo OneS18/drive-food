@@ -36552,7 +36552,7 @@
       "ddd": 0,
       "ind": 6,
       "ty": 1,
-      "nm": "White Solid 4",
+      "nm": "Black Solid 4",
       "parent": 1,
       "sr": 1,
       "ks": {
@@ -36565,7 +36565,7 @@
       "ao": 0,
       "sw": 750,
       "sh": 1334,
-      "sc": "#ffffff",
+      "sc": "black",
       "ip": 0,
       "op": 761,
       "st": 0,
